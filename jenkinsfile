@@ -16,7 +16,7 @@ pipeline {
 		
 		stage('Build Docker Images') {
 			steps {
-				sh 'docker build -t Tomcat/Tomcat:v1 . '
+				sh 'docker build -t fnajmul/Tomcat:v1 . '
             }
         }
 		
@@ -25,15 +25,15 @@ pipeline {
 				withCredentials([string(credentialsId: 'MyDocker-hub-Auth', variable: 'MyDocker-hub-Auth')]) {
 				sh "docker login -u fnajmul -p ${MyDocker-hub-Auth}"
 				}
-				sh 'docker push Tomcat/Tomcat:v1'
+				sh 'docker push fnajmul/Tomcat:v1'
             }
         }
 		
 		stage('Image Pull and deploy the application') {
 			steps {
 				sh 'docker rm web1 -f'
-				sh 'docker pull Tomcat/Tomcat:v1'
-				sh 'docker run --name web1 -dit -p 8081:8080 Tomcat/Tomcat:v1'
+				sh 'docker pull fnajmul/Tomcat:v1'
+				sh 'docker run --name web1 -dit -p 8081:8080 fnajmul/Tomcat:v1'
 			}
         }
 		
