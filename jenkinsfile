@@ -31,7 +31,7 @@ pipeline {
 		
 		stage('Image Pull and deploy the application') {
 			steps {
-				
+				sh 'docker rm web1 -f'
 				sh 'docker pull fnajmul/tomcat:v1'
 				sh 'docker run --name web1 -dit -p 8081:8080 fnajmul/tomcat:v1'
 			}
