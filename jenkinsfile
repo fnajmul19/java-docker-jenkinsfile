@@ -31,8 +31,12 @@ pipeline {
 		
 		stage('Image Pull and deploy the application') {
 			steps {
-				sh 'docker rm web1 -f'
-				sh 'docker pull fnajmul/tomcat'
+				withCredentials([string(credentialsId: 'MyDocker_Auth', variable: 'MyDocker_Auth')]) {
+				sh "docker login -u fnajmul -p ${MyDocker_Auth}"
+				}
+			steps {
+				
+				sh 'docker pull fnajmul/tomcat:v1'
 				sh 'docker run --name web1 -dit -p 8081:8080 fnajmul/tomcat:v1'
 			}
         }
