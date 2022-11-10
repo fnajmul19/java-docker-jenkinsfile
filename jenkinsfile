@@ -22,8 +22,8 @@ pipeline {
 		
 		stage('Push the Docker Images') {
 			steps {
-				withCredentials([string(credentialsId: 'MyDocker-hub-Auth', variable: 'MyDocker-hub-Auth')]) {
-				sh "docker login -u fnajmul -p ${MyDocker-hub-Auth}"
+				withCredentials([string(credentialsId: 'MyDocker_Auth', variable: 'MyDocker_Auth')]) {
+				sh "docker login -u fnajmul -p ${MyDocker_Auth}"
 				}
 				sh 'docker push fnajmul/tomcat:v1'
             }
