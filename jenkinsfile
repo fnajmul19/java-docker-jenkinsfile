@@ -34,6 +34,7 @@ pipeline {
 				withCredentials([string(credentialsId: 'MyDocker_Auth', variable: 'MyDocker_Auth')]) {
 				sh "docker login -u fnajmul -p ${MyDocker_Auth}"
 				}
+				}
 			steps {
 				
 				sh 'docker pull fnajmul/tomcat:v1'
